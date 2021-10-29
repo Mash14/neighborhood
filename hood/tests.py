@@ -79,7 +79,10 @@ class BusinessTestClass(TestCase):
         self.user = User(username = 'mash', email = 'mash@gmail.com', password = 'test')
         self.user.save()
 
-        self.new_business = Business(name = 'Hooters',owner = self.user,neighborhood = self.new_neighborhood,email_address = 'hooters@gmail.com')
+        self.new_userProfile = UserProfile(user = self.user,name = 'Alan',profile_pic = 'image1.png',national_id = '37396037',neighborhood = self.new_neighborhood,email_address = 'mash@gmail.com')
+        self.new_userProfile.save()
+
+        self.new_business = Business(name = 'Hooters',owner = self.new_userProfile,neighborhood = self.new_neighborhood,email_address = 'hooters@gmail.com')
         self.new_business.save()
 
     def tearDown(self):

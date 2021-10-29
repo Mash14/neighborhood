@@ -50,7 +50,7 @@ class UserProfile(models.Model):
 
 class Business(models.Model):
     name = models.CharField(max_length=50)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
     email_address = models.EmailField(max_length=20)
 
@@ -90,4 +90,18 @@ class Post(models.Model):
         return self.title
 
     def save_post(self):
+        self.save()
+
+
+class Services(models.Model):
+    neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
+    police_station = models.CharField(max_length=30)
+    station_number = models.CharField(max_length=15)
+    health_center = models.CharField(max_length=40)
+    center_number = models.CharField(max_length=15)
+
+    def __str__(self):
+        return self.police_station
+
+    def save_services(self):
         self.save()
