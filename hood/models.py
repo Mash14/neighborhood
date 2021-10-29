@@ -26,3 +26,10 @@ class Neighborhood(models.Model):
     @classmethod
     def update_occupant_count(cls,id,new_count):
         cls.objects.filter(id=id).update(occupant_count = new_count)
+
+class UserProfile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=40)
+    national_id = models.CharField(max_length=20)
+    neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
+    email_address = models.EmailField(max_length=20,blank=True)
