@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Neighborhood,UserProfile,Post
+from .models import Business, Neighborhood,UserProfile,Post
 from django.contrib.auth.models import User
 
 # Create your tests here.
@@ -68,3 +68,42 @@ class UserprofileTestClass(TestCase):
         self.new_userProfile.save_userProfile()
         user = UserProfile.objects.all()
         self.assertTrue(len(user)>0)
+
+
+class BusinessTestClass(TestCase):
+
+    def setUp(self):
+        self.new_neighborhood = Neighborhood(name = 'Marurui',location = 'Roysambu', occupant_count = 20000)
+        self.new_neighborhood.save()
+
+        self.user = User(username = 'mash', email = 'mash@gmail.com', password = 'test')
+        self.user.save()
+
+        self.new_business = Business(name = 'Hooters',owner = self.user,neighborhood = self.new_neighborhood,email_address = 'hooters@gmail.com')
+        self.new_business.save()
+
+    def tearDown(self):
+        Business.objects.all().delete()
+
+    def test_save_method(self):
+        self.new_business.save_business()
+        business = Business.objects.all()
+        self.assertTrue(len(business)>0)
+
+    def test_delete_method(self):
+        self.new_business.save_business()
+        self.new_business.delete_business(id = self.new_business.id)
+        business = Business.objects.all()
+        self.assertTrue(len(business) == 0)
+
+    def test_get_business_by_id_method(self):
+        self.new_business.save_business()
+        search_business = self.new_business.get_business_by_id(self.new_business.id)
+        searched_business = Business.objects.filter(id=self.new_business.id)
+        self.assertTrue(searched_business,search_business)
+
+    def test_search_business_method(self):
+        self.new_business.save_business()
+        name = 'Hooters'
+        searched_business = self.new_business.search_business(name)
+        self.assertTrue(len(searched_business)>0)

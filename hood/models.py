@@ -57,6 +57,9 @@ class Business(models.Model):
     def __str__(self):
         return self.name
 
+    def save_business(self):
+        self.save()
+
     @classmethod
     def delete_business(cls,id):
         cls.objects.filter(id = id).delete()
