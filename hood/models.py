@@ -9,10 +9,13 @@ class Neighborhood(models.Model):
     name = models.CharField(max_length=40)
     location = models.CharField(max_length=40)
     occupant_count = models.IntegerField()
-    admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name='admin')
+    admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name='admin',null=True)
     
     def __str__(self):
         return self.name
+
+    def save_neighborhood(self):
+        self.save()
 
     @classmethod
     def delete_neighborhood(cls,id):
