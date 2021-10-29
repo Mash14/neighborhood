@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
+from tinymce.models import HTMLField
 
 # Create your models here.
 
@@ -33,6 +34,7 @@ class Neighborhood(models.Model):
 class UserProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=40)
+    profile_pic = models.ImageField(upload_to = 'post/',blank = True)
     national_id = models.CharField(max_length=20)
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
     email_address = models.EmailField(max_length=20,blank=True)
@@ -66,3 +68,17 @@ class Business(models.Model):
     def search_business(cls,search_term):
         business = cls.objects.filter(name__icontains=search_term)
         return business
+
+class Post(models.Model):
+    title = models.CharField(max_length=45)
+    image = models.ImageField(upload_to = 'post/',blank = True)
+    description = HTMLField() 
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    profile = models.ForeignKey(UserProfile,on_delete=models.CASCADE)
+    pub_date = models.DateTimeField(auto_now_add=True,null = True)
+
+    def __str__(self):
+        return self.title
+
+    def save_post(self):
+        self.save()
