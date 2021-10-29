@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Business, Neighborhood,UserProfile,Post
+from .models import Business, Neighborhood,UserProfile,Post,Services
 from django.contrib.auth.models import User
 
 # Create your tests here.
@@ -139,3 +139,20 @@ class PostTestClass(TestCase):
         post = Post.objects.all()
         self.assertTrue(len(post)>0)
 
+
+class ServicesTestClass(TestCase):
+
+    def setUp(self):
+        self.new_neighborhood = Neighborhood(name = 'Marurui',location = 'Roysambu', occupant_count = 20000)
+        self.new_neighborhood.save()
+
+        self.new_services = Services(neighborhood = self.new_neighborhood, police_station = 'Marurui Post',station_number = '0703456784',health_center = 'Mradi Dispensary',center_number = '070347689')
+        self.new_services.save()
+
+    def test_instance(self):
+        self.assertTrue(isinstance(self.new_services,Services))
+
+    def test_save_method(self):
+        self.new_services.save_services()
+        service = Services.objects.all()
+        self.assertTrue(len(service)>0)
