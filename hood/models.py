@@ -45,6 +45,9 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.name
 
+    def save_userProfile(self):
+        self.save()
+
 class Business(models.Model):
     name = models.CharField(max_length=50)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
