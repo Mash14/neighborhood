@@ -85,6 +85,10 @@ class BusinessTestClass(TestCase):
     def tearDown(self):
         Business.objects.all().delete()
 
+    def test_instance(self):
+        self.assertTrue(isinstance(self.new_business,Business))
+
+
     def test_save_method(self):
         self.new_business.save_business()
         business = Business.objects.all()
@@ -107,3 +111,28 @@ class BusinessTestClass(TestCase):
         name = 'Hooters'
         searched_business = self.new_business.search_business(name)
         self.assertTrue(len(searched_business)>0)
+
+
+class PostTestClass(TestCase):
+
+    def setUp(self):
+        self.new_neighborhood = Neighborhood(name = 'Marurui',location = 'Roysambu', occupant_count = 20000)
+        self.new_neighborhood.save()
+
+        self.user = User(username = 'mash', email = 'mash@gmail.com', password = 'test')
+        self.user.save()
+
+        self.new_userProfile = UserProfile(user = self.user,name = 'Alan',profile_pic = 'image1.png',national_id = '37396037',neighborhood = self.new_neighborhood,email_address = 'mash@gmail.com')
+        self.new_userProfile.save()
+
+        self.new_post = Post(title = 'Death',image = 'image3.png',description = 'Death of the beloved Chief Mutaratara',user = self.user,profile = self.new_userProfile)
+        self.new_post.save()
+
+    def test_instance(self):
+        self.assertTrue(isinstance(self.new_post,Post))
+
+    def test_save_method(self):
+        self.new_post.save_post()
+        post = Post.objects.all()
+        self.assertTrue(len(post)>0)
+
