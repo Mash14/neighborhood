@@ -1,0 +1,20 @@
+{%extends 'base.html'%}
+{% load bootstrap3 %}
+{% load static %}
+
+{% block content %}
+{{block.super}}
+<h1 class="text-center">{{userProfile.name}}'s Profile</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{{userProfile.profile_pic.url}}" class="img-responsive">
+        </div>
+        <div class="col-md-8">
+            <h3>{{user.username}} <a href="{%url 'update_profile'%}"><button class="btn btn-warning btn-">Edit Profile</button></a></h3>
+            <p>Id number: {{userProfile.national_id}}</p>
+            <p>Neighborhood: {{userProfile.neighborhood.name}}</p>
+            <p>Email: {{userProfile.email_address}}</p>
+        </div>
+    </div>
+{% endblock %}
