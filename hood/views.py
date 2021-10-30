@@ -6,7 +6,7 @@ from .models import Neighborhood,Post,UserProfile
 
 @login_required(login_url='/accounts/login')
 def home_page(request):
-    posts = Post.objects.order_by('-title')
+    neighborhoods = Neighborhood.objects.all()
 
     title = 'Home'
-    return render(request, 'index.html', {'posts':posts,'title':title})
+    return render(request, 'index.html', {'neighborhoods':neighborhoods,'title':title})

@@ -1,0 +1,15 @@
+{%extends 'base.html'%}
+{% load bootstrap3 %}
+{% load static %}
+
+{% block content %}
+{{block.super}}
+<h1 class="text-center">NeighborHood</h1>
+<p>To inform members about the hapenings of their neighborhood.</p>
+<p>This are the available neighborhoods:</p>
+<ul>
+    {% for neighborhood in neighborhoods %}
+    <a href="#"><li>{{neighborhood.name}}</li></a>
+    {% endfor %}
+</ul>
+{% endblock %}
