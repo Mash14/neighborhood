@@ -10,3 +10,6 @@ def home_page(request):
 
     title = 'Home'
     return render(request, 'index.html', {'neighborhoods':neighborhoods,'title':title})
+
+@login_required(login_url='/accounts/login')
+def post_neighborhood(request):
