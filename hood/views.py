@@ -27,3 +27,11 @@ def post_neighborhood(request):
 
     title = 'Upload Neighborhood'
     return render(request, 'post_neighborhood.html',{'form':form,'title':title})
+
+@login_required(login_url='/accounts/login')
+def profile(request):
+    current_user = request.user
+    userProfile = UserProfile.objects.filter(user = current_user).first()
+    title = 'Profile Page'
+    return render(request, 'profile.html', {'userProfile':userProfile,'title':title})
+
