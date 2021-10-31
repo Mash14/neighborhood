@@ -78,3 +78,10 @@ def post_business(request):
     
     title = 'Post Business'
     return render(request,'post_business.html',{'form':form,'title':title})
+
+@login_required(login_url='/accounts/login')
+def single_business(request,id):
+    business = Business.objects.get(id=id)
+
+    title = 'Single Business'
+    return render(request,'single_business.html',{'business':business,'title':title})
