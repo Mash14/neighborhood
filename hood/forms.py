@@ -13,7 +13,7 @@ class NewProfileForm(forms.ModelForm):
         model = UserProfile
         exclude = ['user']
 
-class NewBusiness(forms.ModelForm):
+class NewBusinessForm(forms.ModelForm):
     class Meta:
         model = Business
         exclude = ['owner']

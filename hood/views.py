@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from .models import Business, Neighborhood,Post,UserProfile
-from .forms import NeighborhoodForm,NewProfileForm
+from .forms import NeighborhoodForm,NewProfileForm,NewBusinessForm
 
 # Create your views here.
 
@@ -61,3 +61,20 @@ def business(request):
 
     title = 'Business'
     return render(request, 'business.html',{'business':busines,'title':title}) 
+
+@login_required(login_url='/accounts/login')
+def post_business(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewBusinessForm(request.POST,request.FILES)
+        if form.is_valid():
+            business = form.save(commit=False)
+            business.owner = current_user
+            business.save()
+            return redirect('business_list')
+        
+    else:
+        form = NewBusinessForm()
+    
+    title = 'Post Business'
+    return render(request,'post_business',{'form':form,'title':title})
