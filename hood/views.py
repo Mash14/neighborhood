@@ -77,4 +77,4 @@ def post_business(request):
         form = NewBusinessForm()
     
     title = 'Post Business'
-    return render(request,'post_business',{'form':form,'title':title})
+    return render(request,'post_business.html',{'form':form,'title':title})

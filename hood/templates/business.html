@@ -5,9 +5,13 @@
 {% block content %}
 {{block.super}}
 <h1 class="text-center">Business</h1>
+<p>These are all the available business</p>
+<p>Add your business here</p>
+<a href="{%url 'post_business'%}"><button class="btn btn-success btn-lg">Post Business</button></a>
+<h2 class="text-center">Business List</h2>
 <ol>
-    {% for business in busines %}
-    <a href="#"><li>{{business.name}}</li></a>
+    {% for busines in business %}
+    <a href="#"><li>{{busines.name}}</li></a>
     {% endfor %}
 </ol>
 

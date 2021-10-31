@@ -40,7 +40,7 @@ class UserProfile(models.Model):
     profile_pic = models.ImageField(upload_to = 'post/',blank = True)
     national_id = models.CharField(max_length=20)
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
-    email_address = models.EmailField(max_length=20,blank=True)
+    email_address = models.EmailField(max_length=40,blank=True)
 
     def __str__(self):
         return self.name
@@ -50,9 +50,9 @@ class UserProfile(models.Model):
 
 class Business(models.Model):
     name = models.CharField(max_length=50)
-    owner = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
-    email_address = models.EmailField(max_length=20)
+    email_address = models.EmailField(max_length=40)
 
     def __str__(self):
         return self.name
