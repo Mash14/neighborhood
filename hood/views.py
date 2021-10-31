@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from .models import Neighborhood,Post,UserProfile
+from .models import Business, Neighborhood,Post,UserProfile
 from .forms import NeighborhoodForm,NewProfileForm
 
 # Create your views here.
@@ -54,3 +54,10 @@ def update_profile(request):
         
     title = 'Update Profile'
     return render(request, 'update_profile.html',{'form':form,'title':title,'userProfile':userProfile})
+
+@login_required(login_url='/accounts/login')
+def business(request):
+    busines = Business.objects.all()
+
+    title = 'Business'
+    return render(request, 'business.html',{'business':busines,'title':title}) 
