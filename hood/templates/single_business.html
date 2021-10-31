@@ -1,0 +1,11 @@
+{%extends 'base.html'%}
+{% load bootstrap3 %}
+{% load static %}
+
+{% block content %}
+{{block.super}}
+<h1>{{business.name}}</h1>
+<p>This business belong to - {{business.owner}}</p>
+<p>It is located in {{business.neighborhood.name}} estate, {{business.neighborhood.location}}</p>
+<p>{{business.name}} email address is {{business.email_address}}</p>
+{% endblock %}

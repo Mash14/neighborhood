@@ -85,3 +85,17 @@ def single_business(request,id):
 
     title = 'Single Business'
     return render(request,'single_business.html',{'business':business,'title':title})
+
+@login_required(login_url='/accounts/login')
+def search(request):
+    if 'name' in request.GET and request.GET['name']:
+        search_term = request.GET.get('name')
+        searched_business = Business.search_project(search_term)
+        message = f'{search_term}'
+
+        return render(request, 'search.html', {'message':message, 'business':searched_business}) 
+
+    else:
+        message = "You haven't searched for any business, try again"
+    
+    return render(request, 'search.html', {'message': message})

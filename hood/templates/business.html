@@ -11,7 +11,7 @@
 <h2 class="text-center">Business List</h2>
 <ol>
     {% for busines in business %}
-    <a href="#"><li>{{busines.name}}</li></a>
+    <a href="{% url 'view_business' busines.id %}"><li>{{busines.name}}</li></a>
     {% endfor %}
 </ol>
 
