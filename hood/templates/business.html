@@ -1,0 +1,14 @@
+{%extends 'base.html'%}
+{% load bootstrap3 %}
+{% load static %}
+
+{% block content %}
+{{block.super}}
+<h1 class="text-center">Business</h1>
+<ol>
+    {% for business in busines %}
+    <a href="#"><li>{{business.name}}</li></a>
+    {% endfor %}
+</ol>
+
+{% endblock %}
