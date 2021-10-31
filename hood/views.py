@@ -90,7 +90,7 @@ def single_business(request,id):
 def search(request):
     if 'name' in request.GET and request.GET['name']:
         search_term = request.GET.get('name')
-        searched_business = Business.search_project(search_term)
+        searched_business = Business.search_business(search_term)
         message = f'{search_term}'
 
         return render(request, 'search.html', {'message':message, 'business':searched_business}) 

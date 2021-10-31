@@ -1,0 +1,29 @@
+{%extends 'base.html'%}
+{% load bootstrap3 %}
+
+{% block content %}
+{{block.super}}
+
+<div class="container">
+    <div class="row">
+        {% if business %}
+        <h3 class="text-center">Found {{ business|length }} result on {{message}}</h3>
+        <div class="container">
+            <hr />
+        </div>
+        {% else %}
+        <h3 class="text-center">We couldn't find any business of that name, kindly search again</h3>
+        {% endif %}
+    </div>
+    <div class="row">
+        {% if business %}
+        <h1 class="text-center">Business List</h1>
+        <ol>
+            {% for busines in business %}
+            <a href="{% url 'view_business' busines.id %}"><li>{{busines.name}}</li></a>
+            {% endfor %}
+        </ol>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
