@@ -85,6 +85,7 @@ class Post(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     profile = models.ForeignKey(UserProfile,on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add=True,null = True)
+    neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE,null = True)
 
     def __str__(self):
         return self.title

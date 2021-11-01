@@ -117,3 +117,9 @@ def create_post(request):
     title = 'New_Post'
     return render(request, 'create_post.html',{'form':form,'title':title})
         
+@login_required(login_url='/accounts/login')
+def posts_page(request):
+    posts = Post.objects.all()
+
+    title =  'Posts'
+    return render(request, 'post.html',{'posts':posts,'title':title})
