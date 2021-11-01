@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Neighborhood, Post,UserProfile,Business
+from .models import Neighborhood, Post,UserProfile,Business,Services
 
 class NeighborhoodForm(forms.ModelForm):
     class Meta:
@@ -22,3 +22,8 @@ class NewPostForm(forms.ModelForm):
     class Meta:
         model = Post
         exclude = ['user','profile','pub_date']
+
+class UpdateServicesForm(forms.ModelForm):
+    class Meta:
+        model = Services
+        fields = ['neighborhood','police_station','station_number','health_center','center_number']

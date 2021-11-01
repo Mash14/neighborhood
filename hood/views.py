@@ -134,8 +134,8 @@ def single_post(request,id):
 @login_required(login_url='/accounts/login')
 def single_neighborhood(request,id):
     neighborhood = Neighborhood.objects.get(id = id)
-    business = Business.objects.filter(id = neighborhood.id).all()
-    posts = Post.objects.filter(id = neighborhood.id).all()
+    business = Business.objects.filter(neighborhood = neighborhood).all()
+    posts = Post.objects.filter(neighborhood = neighborhood).all()
 
     title = 'Neighborhood'
     return render(request, 'single_neighborhood.html',{'neighborhood':neighborhood,'business':business,'posts':posts,'title':title})
