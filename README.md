@@ -4,6 +4,8 @@ The name of this project is NeighborHood
 
 # Description
 
+The neighborhood app is to help users to know whats going around their neighborhood and to get essential services like the nearest hospital.Users can post what they would like other people to know and also advertise themselves and their businesses.
+
 ## User Story
 
 - Sign in with the application to start using.
