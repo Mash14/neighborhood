@@ -83,7 +83,6 @@ class Post(models.Model):
     image = models.ImageField(upload_to = 'post/',blank = True)
     description = HTMLField() 
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    profile = models.ForeignKey(UserProfile,on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add=True,null = True)
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE,null = True)
 

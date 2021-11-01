@@ -107,9 +107,9 @@ def create_post(request):
         form = NewPostForm(request.POST,request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-            post.profile.user = current_user
+            post.user = current_user
             post.save()
-            return redirect('post_page')
+            return redirect('posts')
 
     else:
         form = NewPostForm()
@@ -119,7 +119,7 @@ def create_post(request):
         
 @login_required(login_url='/accounts/login')
 def posts_page(request):
-    posts = Post.objects.all()
+    posts = Post.objects.order_by('-title')
 
     title =  'Posts'
     return render(request, 'post.html',{'posts':posts,'title':title})
@@ -130,3 +130,12 @@ def single_post(request,id):
 
     title = 'Single Post'
     return render(request, 'single_post.html',{'post':post,'title':title})
+
+@login_required(login_url='/accounts/login')
+def single_neighborhood(request,id):
+    neighborhood = Neighborhood.objects.get(id = id)
+    business = Business.objects.filter(id = neighborhood.id).all()
+    posts = Post.objects.filter(id = neighborhood.id).all()
+
+    title = 'Neighborhood'
+    return render(request, 'single_neighborhood.html',{'neighborhood':neighborhood,'business':business,'posts':posts,'title':title})

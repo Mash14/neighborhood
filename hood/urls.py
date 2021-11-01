@@ -14,7 +14,8 @@ urlpatterns=[
     url('search/', views.search, name='search'),
     url('post/',views.create_post, name = 'create_post'),
     url('posts/',views.posts_page,name = 'posts'),
-    url('single/pots/', views.single_post, name = 'single_post'),
+    url('single/pots/(?P<id>\d+)', views.single_post, name = 'single_post'),
+    url('hood/(?P<id>\d+)', views.single_neighborhood, name = 'hood'),
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
