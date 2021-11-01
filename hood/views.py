@@ -119,7 +119,7 @@ def create_post(request):
         
 @login_required(login_url='/accounts/login')
 def posts_page(request):
-    posts = Post.objects.order_by('-title')
+    posts = Post.objects.order_by('-pub_date')
 
     title =  'Posts'
     return render(request, 'post.html',{'posts':posts,'title':title})

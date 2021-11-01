@@ -1,0 +1,44 @@
+{%extends 'base.html'%}
+{% load bootstrap3 %}
+
+{% block content %}
+{{block.super}}
+<div class="container">
+    <h1 class="text-center">{{neighborhood.name}}</h1>
+    <p>{{neighborhood.name}} estate is located at {{neighborhood.location}}</p>
+    <p>It's total population is {{neighborhood.occupant_count}}</p>
+
+    <h2 class="text-center">Business</h2>
+    
+    {% if business %}
+        <p>The available businesses in this area are:</p>
+        <ul>
+        {% for busines in business%}
+        <a href="{% url 'view_business' busines.id %}"><li>{{busines.name}}</li></a>
+        {% endfor %}
+        <p>Add your business <a href="{%url 'post_business'%}">Here</a></p>
+        </ul>
+        {% else %}
+        <p>No businesses have been registered at the moment</p>
+        <p>Add your business <a href="{%url 'post_business'%}">Here</a></p>
+    {% endif %}
+
+    <h2 class="text-center">Posts</h2>
+    {% if posts %}
+        {% for post in posts %}
+        <div class="responsive">
+            <div class="gallery">
+                <a href="{% url 'single_post' post.id %}"><img src="{{post.image.url}}"  alt="Image" width="600" height="400"></a>
+                <div class="desc">
+                    <h3 class="text-center"><a href="{% url 'single_post' post.id %}"> {{ post.title }} </a></h3>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <p>Create post <a href="{%url 'create_post' %}">Here</a></p>
+    {% else %}
+        <p>There are no posts at this time.</p>
+        <p>Create post <a href="{%url 'create_post' %}">Here</a></p>
+    {% endif %}
+</div>
+{% endblock %}

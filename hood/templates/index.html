@@ -9,7 +9,7 @@
 <p>This are the available neighborhoods:</p>
 <ul>
     {% for neighborhood in neighborhoods %}
-    <a href="#"><li>{{neighborhood.name}}</li></a>
+    <a href="{% url 'hood' neighborhood.id %}"><li>{{neighborhood.name}}</li></a>
     {% endfor %}
 </ul>
 {% endblock %}
