@@ -1,0 +1,20 @@
+{%extends 'base.html'%}
+{% load bootstrap3 %}
+{% load static %}
+
+{% block content %}
+{{block.super}}
+<h1 class="text-center">Posts</h1>
+{% for post in posts %}
+<div class="row">
+
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <a href="{% url 'single_post' post.id %}"><img src="{{post.image.url}}"  class="img-responsive" alt="Image" width="700" height="700"></a>
+        <h3 class="text-center"><a href="{% url 'single_post' post.id %}"> {{ project.title }} </a></h3>
+    </div>
+    <div class="col-md-3">
+        <a href="{%url 'create_post' %}"><button class="btn btn-success btn-lg">Create Post</button></a>
+    </div>
+{% endfor %}
+{% endblock %}
