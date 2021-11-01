@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from .models import Business, Neighborhood,Post,UserProfile
-from .forms import NeighborhoodForm,NewProfileForm,NewBusinessForm,NewPostForm
+from .forms import NeighborhoodForm,NewProfileForm,NewBusinessForm,NewPostForm,UpdateServicesForm
 
 # Create your views here.
 
@@ -139,3 +139,16 @@ def single_neighborhood(request,id):
 
     title = 'Neighborhood'
     return render(request, 'single_neighborhood.html',{'neighborhood':neighborhood,'business':business,'posts':posts,'title':title})
+
+@login_required(login_url='/accounts/login')
+def post_services(request):
+    if request.method == 'POST':
+        form = UpdateServicesForm(request.POST,request.FILES)
+        if form.is_valid():
+            service = form.save(commit=False)
+            service.save()
+            return redirect('home')
+    
+    else:
+        form = UpdateServicesForm()
+    return render(request, 'services.html', {'form':form})
