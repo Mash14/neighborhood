@@ -18,7 +18,7 @@ class NewBusinessForm(forms.ModelForm):
         model = Business
         exclude = ['owner']
 
-class NewPPostForm(forms.ModelForm):
+class NewPostForm(forms.ModelForm):
     class Meta:
         model = Post
         exclude = ['user','profile','pub_date']

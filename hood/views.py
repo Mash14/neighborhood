@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from .models import Business, Neighborhood,Post,UserProfile
-from .forms import NeighborhoodForm,NewProfileForm,NewBusinessForm
+from .forms import NeighborhoodForm,NewProfileForm,NewBusinessForm,NewPostForm
 
 # Create your views here.
 
@@ -102,4 +102,18 @@ def search(request):
 
 @login_required(login_url='/accounts/login')
 def create_post(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewPostForm(request.POST,request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.profile.user = current_user
+            post.save()
+            return redirect('post_page')
+
+    else:
+        form = NewPostForm()
     
+    title = 'New_Post'
+    return render(request, 'create_post.html',{'form':form,'title':title})
+        
