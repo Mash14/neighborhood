@@ -1,0 +1,24 @@
+{%extends 'base.html'%}
+{% load bootstrap3 %}
+{% load static %}
+
+{% block content %}
+{{block.super}}
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h1 class="text-center"> {{ post.title }} </h1>
+            <img src="{{post.image.url}}"  class="img-responsive" alt="Image" width="700" height="700">
+            {% autoescape on %}
+            <p>{{post.description}}</p>
+            {% endautoescape %}
+            <p>Posted by: {{post.user.username}}</p>
+            <p>Posted by: {{post.profile.name}}</p>
+            <p>Neighborhood: {{post.neighborhood.name}}</p>
+            <p>Posted since: {{post.pub_date|timesince}}</p>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+{% endblock %}
