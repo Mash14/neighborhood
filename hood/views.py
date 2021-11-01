@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from .models import Business, Neighborhood,Post,UserProfile
-from .forms import NeighborhoodForm,NewProfileForm,NewBusinessForm,NewPostForm,UpdateServicesForm
+from .models import Business, Neighborhood,Post,UserProfile,Police,Health
+from .forms import NeighborhoodForm,NewProfileForm,NewBusinessForm,NewPostForm,UpdatePoliceForm,UpdateHealthForm
 
 # Create your views here.
 
@@ -136,19 +136,33 @@ def single_neighborhood(request,id):
     neighborhood = Neighborhood.objects.get(id = id)
     business = Business.objects.filter(neighborhood = neighborhood).all()
     posts = Post.objects.filter(neighborhood = neighborhood).all()
+    services = Post.objects.filter(neighborhood=neighborhood).all()
 
     title = 'Neighborhood'
-    return render(request, 'single_neighborhood.html',{'neighborhood':neighborhood,'business':business,'posts':posts,'title':title})
+    return render(request, 'single_neighborhood.html',{'neighborhood':neighborhood,'business':business,'posts':posts,'title':title,'services':services})
 
 @login_required(login_url='/accounts/login')
-def post_services(request):
+def post_police(request):
     if request.method == 'POST':
-        form = UpdateServicesForm(request.POST,request.FILES)
+        form = UpdatePoliceForm(request.POST,request.FILES)
         if form.is_valid():
-            service = form.save(commit=False)
-            service.save()
+            center = form.save(commit=False)
+            center.save()
             return redirect('home')
     
     else:
-        form = UpdateServicesForm()
-    return render(request, 'services.html', {'form':form})
+        form = UpdatePoliceForm()
+    return render(request, 'police.html', {'form':form})
+
+@login_required(login_url='/accounts/login')
+def post_health(request):
+    if request.method == 'POST':
+        form = UpdateHealthForm(request.POST,request.FILES)
+        if form.is_valid():
+            center = form.save(commit=False)
+            center.save()
+            return redirect('home')
+    
+    else:
+        form = UpdateHealthForm()
+    return render(request, 'health.html', {'form':form})

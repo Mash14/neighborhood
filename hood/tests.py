@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import Business, Neighborhood,UserProfile,Post,Services
+from .models import Business, Neighborhood,UserProfile,Post,Police,Health
 from django.contrib.auth.models import User
 
 # Create your tests here.
@@ -79,10 +79,10 @@ class BusinessTestClass(TestCase):
         self.user = User(username = 'mash', email = 'mash@gmail.com', password = 'test')
         self.user.save()
 
-        self.new_userProfile = UserProfile(user = self.user,name = 'Alan',profile_pic = 'image1.png',national_id = '37396037',neighborhood = self.new_neighborhood,email_address = 'mash@gmail.com')
-        self.new_userProfile.save()
+        # self.new_userProfile = UserProfile(user = self.user,name = 'Alan',profile_pic = 'image1.png',national_id = '37396037',neighborhood = self.new_neighborhood,email_address = 'mash@gmail.com')
+        # self.new_userProfile.save()
 
-        self.new_business = Business(name = 'Hooters',owner = self.new_userProfile,neighborhood = self.new_neighborhood,email_address = 'hooters@gmail.com')
+        self.new_business = Business(name = 'Hooters',owner = self.user,neighborhood = self.new_neighborhood,email_address = 'hooters@gmail.com')
         self.new_business.save()
 
     def tearDown(self):
@@ -125,10 +125,10 @@ class PostTestClass(TestCase):
         self.user = User(username = 'mash', email = 'mash@gmail.com', password = 'test')
         self.user.save()
 
-        self.new_userProfile = UserProfile(user = self.user,name = 'Alan',profile_pic = 'image1.png',national_id = '37396037',neighborhood = self.new_neighborhood,email_address = 'mash@gmail.com')
-        self.new_userProfile.save()
+        # self.new_userProfile = UserProfile(user = self.user,name = 'Alan',profile_pic = 'image1.png',national_id = '37396037',neighborhood = self.new_neighborhood,email_address = 'mash@gmail.com')
+        # self.new_userProfile.save()
 
-        self.new_post = Post(title = 'Death',image = 'image3.png',description = 'Death of the beloved Chief Mutaratara',user = self.user,profile = self.new_userProfile)
+        self.new_post = Post(title = 'Death',image = 'image3.png',description = 'Death of the beloved Chief Mutaratara',user = self.user)
         self.new_post.save()
 
     def test_instance(self):
@@ -146,13 +146,30 @@ class ServicesTestClass(TestCase):
         self.new_neighborhood = Neighborhood(name = 'Marurui',location = 'Roysambu', occupant_count = 20000)
         self.new_neighborhood.save()
 
-        self.new_services = Services(neighborhood = self.new_neighborhood, police_station = 'Marurui Post',station_number = '0703456784',health_center = 'Mradi Dispensary',center_number = '070347689')
-        self.new_services.save()
+        self.new_police_services = Police(neighborhood = self.new_neighborhood, police_station = 'Marurui Post',station_number = '0703456784')
+        self.new_police_services.save()
 
     def test_instance(self):
-        self.assertTrue(isinstance(self.new_services,Services))
+        self.assertTrue(isinstance(self.new_police_services,Police))
 
     def test_save_method(self):
-        self.new_services.save_services()
-        service = Services.objects.all()
-        self.assertTrue(len(service)>0)
+        self.new_police_services.save_police()
+        police = Police.objects.all()
+        self.assertTrue(len(police)>0)
+
+class ServicesTestClass(TestCase):
+
+    def setUp(self):
+        self.new_neighborhood = Neighborhood(name = 'Marurui',location = 'Roysambu', occupant_count = 20000)
+        self.new_neighborhood.save()
+
+        self.new_health_services = Health(neighborhood = self.new_neighborhood,health_center = 'Mradi Dispensary',center_number = '070347689')
+        self.new_health_services.save()
+
+    def test_instance(self):
+        self.assertTrue(isinstance(self.new_health_services,Health))
+
+    def test_save_method(self):
+        self.new_health_services.save_center()
+        center = Health.objects.all()
+        self.assertTrue(len(center)>0)

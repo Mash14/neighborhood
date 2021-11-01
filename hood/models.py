@@ -93,15 +93,24 @@ class Post(models.Model):
         self.save()
 
 
-class Services(models.Model):
+class Police(models.Model):
     neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
     police_station = models.CharField(max_length=30)
-    station_number = models.CharField(max_length=15)
-    health_center = models.CharField(max_length=40)
-    center_number = models.CharField(max_length=15)
+    station_number = models.CharField(max_length=15)  
 
     def __str__(self):
         return self.police_station
 
-    def save_services(self):
+    def save_police(self):
+        self.save()
+
+class Health(models.Model):
+    neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE)
+    health_center = models.CharField(max_length=40)
+    center_number = models.CharField(max_length=15)
+
+    def __str__(self):
+        return self.health_center
+
+    def save_center(self):
         self.save()
