@@ -99,3 +99,7 @@ def search(request):
         message = "You haven't searched for any business, try again"
     
     return render(request, 'search.html', {'message': message})
+
+@login_required(login_url='/accounts/login')
+def create_post(request):
+    
