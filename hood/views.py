@@ -114,7 +114,7 @@ def create_post(request):
     else:
         form = NewPostForm()
     
-    title = 'New_Post'
+    title = 'New Post'
     return render(request, 'create_post.html',{'form':form,'title':title})
         
 @login_required(login_url='/accounts/login')
@@ -123,3 +123,10 @@ def posts_page(request):
 
     title =  'Posts'
     return render(request, 'post.html',{'posts':posts,'title':title})
+
+@login_required(login_url='/accounts/login')
+def single_post(request,id):
+    post = Post.objects.get(id = id)
+
+    title = 'Single Post'
+    return render(request, 'single_post.html',{'post':post,'title':title})
