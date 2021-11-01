@@ -136,10 +136,11 @@ def single_neighborhood(request,id):
     neighborhood = Neighborhood.objects.get(id = id)
     business = Business.objects.filter(neighborhood = neighborhood).all()
     posts = Post.objects.filter(neighborhood = neighborhood).all()
-    services = Post.objects.filter(neighborhood=neighborhood).all()
+    police = Police.objects.filter(neighborhood=neighborhood).all()
+    health = Health.objects.filter(neighborhood=neighborhood).all()
 
     title = 'Neighborhood'
-    return render(request, 'single_neighborhood.html',{'neighborhood':neighborhood,'business':business,'posts':posts,'title':title,'services':services})
+    return render(request, 'single_neighborhood.html',{'neighborhood':neighborhood,'business':business,'posts':posts,'title':title,'police':police,'health':health})
 
 @login_required(login_url='/accounts/login')
 def post_police(request):

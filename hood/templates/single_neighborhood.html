@@ -8,7 +8,7 @@
     <p>{{neighborhood.name}} estate is located at {{neighborhood.location}}</p>
     <p>It's total population is {{neighborhood.occupant_count}}</p>
 
-    <h2 class="text-center">Business</h2>
+    <h2>Business</h2>
     
     {% if business %}
         <p>The available businesses in this area are:</p>
@@ -16,14 +16,45 @@
         {% for busines in business%}
         <a href="{% url 'view_business' busines.id %}"><li>{{busines.name}}</li></a>
         {% endfor %}
-        <p>Add your business <a href="{%url 'post_business'%}">Here</a></p>
         </ul>
+        <p>Add your business <a href="{%url 'post_business'%}">Here</a></p>
         {% else %}
         <p>No businesses have been registered at the moment</p>
         <p>Add your business <a href="{%url 'post_business'%}">Here</a></p>
     {% endif %}
 
-    <h2 class="text-center">Posts</h2>
+    <h2>Health services</h2>
+    
+    {%if health %}
+        <p>Available health centers are:</p>
+        <ol>
+            {% for center in health %}
+            <li>{{center.health_center}} - {{center.center_number}}</li>
+            {% endfor %}
+        </ol>
+        <p>Add <a href="{%url 'post_health' %}">Here</a></p>
+    {% else %}
+        <p>No registered health services at this time</p>
+        <p>Add <a href="{%url 'post_health' %}">Here</a></p>
+    {% endif %}
+    
+    <h2>Police services</h2>
+    
+    {%if police %}
+        <p>Available police stations are:</p>
+        <ol>
+            {% for station in police %}
+            <li>{{station.police_station}} - {{police.station_number}}</li>
+            {% endfor %}
+        </ol>
+        <p>Add <a href="{%url 'post_police' %}">Here</p>
+    {% else %}
+        <p>No registered health services at this time</p>
+        <p>Add <a href="{%url 'post_police' %}">Here</a></p>
+    {% endif %}
+
+
+    <h2>Posts</h2>
     {% if posts %}
         {% for post in posts %}
         <div class="responsive">
@@ -35,11 +66,11 @@
             </div>
         </div>
         {% endfor %}
-        <p>Create post <a href="{%url 'create_post' %}">Here</a></p>
+        <!-- <p>Create post <a href="{%url 'create_post' %}">Here</a></p> -->
     {% else %}
         <p>There are no posts at this time.</p>
         <p>Create post <a href="{%url 'create_post' %}">Here</a></p>
     {% endif %}
-    <h2>Health/Police services</h2>
+    
 </div>
 {% endblock %}
